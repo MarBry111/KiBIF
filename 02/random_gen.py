@@ -37,7 +37,7 @@ def LCG(n, x, a = 22695477, m = 2**32, c = 1):
         xs.append(x)
         #tried to write as bytes
         #with open('lcg_randomness_ints', 'ab+') as f:
-        #	f.write(int(x).to_bytes(8, byteorder='big'))
+        #   f.write(int(x).to_bytes(8, byteorder='big'))
     with open('lcg_randomness', 'wb+') as f:
         f.write(output.encode())
     return xs
@@ -45,28 +45,30 @@ def LCG(n, x, a = 22695477, m = 2**32, c = 1):
 def test_file(fn):
     print(getoutput('rngtest <'+fn))
 
-xs = LCG(N, 0.1)
-test_file('lcg_randomness')
-test_file('lcg_randomness_ints')
+def main():
+    xs = LCG(N, 0.1)
+    test_file('lcg_randomness')
+    '''
+    labels, values = zip(*Counter(xs).items())
 
-'''
-labels, values = zip(*Counter(xs).items())
+    indexes = np.arange(len(labels))
+    width = 0.5
 
-indexes = np.arange(len(labels))
-width = 0.5
+    #plot histogram
+    plt.figure(figsize=(15,5))
+    plt.bar(indexes, values, width)
+    plt.xticks(indexes + width * 0.5, labels)
+    plt.xlabel('liczby', fontsize=15)
+    plt.ylabel('liczba wystąpień danej liczby', fontsize=15)
+    plt.xticks(rotation=90,fontsize=1)
+    #plt.plot(values, 'o', linewidth = 0.5)
+    plt.savefig('p_o_factorial.png')
 
-#plot histogram
-plt.figure(figsize=(15,5))
-plt.bar(indexes, values, width)
-plt.xticks(indexes + width * 0.5, labels)
-plt.xlabel('liczby', fontsize=15)
-plt.ylabel('liczba wystąpień danej liczby', fontsize=15)
-plt.xticks(rotation=90,fontsize=1)
-#plt.plot(values, 'o', linewidth = 0.5)
-plt.savefig('p_o_factorial.png')
+    #checcking for some dependences between xi and xi+1
+    xs_2 = np.array([xs[:-1],xs[1:]])
+    plt.scatter(xs_2[0,:], xs_2[1,:])
+    plt.savefig('p_scatter.png')
+    '''
 
-#checcking for some dependences between xi and xi+1
-xs_2 = np.array([xs[:-1],xs[1:]])
-plt.scatter(xs_2[0,:], xs_2[1,:])
-plt.savefig('p_scatter.png')
-'''
+if __name__ == "__main__":
+    main()
