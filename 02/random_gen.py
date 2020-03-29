@@ -36,18 +36,18 @@ def LCG(n, x, a = 22695477, m = 2**32, c = 1):
         output = output + str(x)
         xs.append(x)
         #tried to write as bytes
-        #with open('lcg_randomness_ints', 'ab+') as f:
-        #   f.write(int(x).to_bytes(8, byteorder='big'))
-    with open('lcg_randomness', 'wb+') as f:
-        f.write(output.encode())
+        with open('lcg_randomness_ints', 'ab+') as f:
+           f.write(int(x).to_bytes(4, byteorder='little'))
+    #with open('lcg_randomness', 'wb+') as f:
+    #    f.write(output.encode())
     return xs
 
 def test_file(fn):
     print(getoutput('rngtest <'+fn))
 
 def main():
-    xs = LCG(N, 0.1)
-    test_file('lcg_randomness')
+    xs = LCG(N, 5)
+    test_file('lcg_randomness_ints')
     '''
     labels, values = zip(*Counter(xs).items())
 
