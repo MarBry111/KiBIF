@@ -6,7 +6,7 @@ from time import gmtime, strftime, sleep
 path_u_rand = '/dev/urandom'
 path_rand = '/dev/random'
 
-#pobieranie entropii
+#reading entropy from given source + writing to file
 def get_rand_entr(path, file):
     data = None 
     dt = strftime("%Y-%m-%d %H:%M:%S", gmtime())
