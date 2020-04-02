@@ -8,36 +8,36 @@ import sys
 import ssl
 import pandas as pd
 from OpenSSL import crypto
-import concurrent.futures
+from multiprocessing.dummy import Pool as ThreadPool
+import time
+from tqdm import tqdm
 
 hostname = 'www.facebook.com'
 port = 443
 
 #https://www.domcop.com/top-10-million-domains
 
-key_page = {}
-
 j = 0
 nrows = 1000
 
-n_list = [i for i in range(9000, 10000000, nrows)]
+n_list = [i for i in range(28000, 10000000, nrows)]
+#n_list_10000 = [i for i in range(0, 10000, nrows)]
 
-print(n_list)
+#n_input = int(sys.argv[1])
 
 def process_keys(n = 0):
-    global j 
 
     if n == 0: 
         n = 1
     pd_pages = pd.read_csv('top10milliondomains.csv', skiprows=n, nrows=nrows, names= ['Rank', 'Domain', 'OpenRank'], header=None)
     pd_pages['Key'] = np.nan
 
-    for i, p in pd_pages.iterrows():
+    for i, p in tqdm(pd_pages.iterrows(), total=pd_pages.shape[0]):
         
-        if (p['Rank']) % 10 == 0:
-            print(n, i, j, end = '\r')
+        #if (p['Rank']) % 10 == 0:
+        #    print(n, i, j, end = '\r')
         
-        hostname = 'www.' + p['Domain'] 
+        hostname = p['Domain'] 
 
         try:
             cert = ssl.get_server_certificate((hostname, port))
@@ -49,8 +49,6 @@ def process_keys(n = 0):
             #key_decode = key.decode()
 
             #print(key_decode)
-
-            j += 1
 
             pd_pages.loc[i, 'Key'] =  key
 
@@ -66,5 +64,7 @@ def process_keys(n = 0):
         '''
     pd_pages.to_csv('keys/pages_with_keys'+str(n)+'.csv')
 
-for n in n_list:
-    process_keys(n)
+pool = ThreadPool(32)
+
+with pool as p:
+    r = list(tqdm(p.imap(process_keys, n_list), total=nrows))
