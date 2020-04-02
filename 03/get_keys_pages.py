@@ -20,7 +20,7 @@ key_page = {}
 j = 0
 nrows = 1000
 
-n_list = [i for i in range(nrows, 10**7//nrows, nrows)]
+n_list = [i for i in range(9000, 10000000, nrows)]
 
 print(n_list)
 
