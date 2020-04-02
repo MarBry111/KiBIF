@@ -13,9 +13,6 @@ import concurrent.futures
 hostname = 'www.facebook.com'
 port = 443
 
-#key = getoutput('openssl s_client -connect '+hostname+':'+str(port)+' | openssl x509 -pubkey -noout')
-#print(key)
-
 #https://www.domcop.com/top-10-million-domains
 
 key_page = {}
@@ -55,7 +52,7 @@ def process_keys(n = 0):
 
             j += 1
 
-            pd_pages[i, 'Key'] =  key
+            pd_pages.loc[i, 'Key'] =  key
 
         except:
             pass
