@@ -1,14 +1,15 @@
+import numpy as np
 
 def product(X):
 	if len(X) == 0: return 1
 	while len(X) > 1:
-		X = [prod(X[i*2:(i+1)*2]) for i in range((len(X)+1)/2)]
+		X = [int(np.prod(X[int(i*2):int((i+1)*2)])) for i in range(int((len(X)+1)//2))]
 	return X[0]
 
 def producttree(X):
 	result = [X]
 	while len(X) > 1:
-		X = [prod(X[i*2:(i+1)*2]) for i in range((len(X)+1)/2)]
+		X = [int(np.prod(X[int(i*2):int((i+1)*2)])) for i in range(int((len(X)+1)//2))]
 		result.append(X)
 	return result
 
@@ -26,5 +27,5 @@ def batchgcd_faster(X):
 	R = prods.pop()
 	while prods:
 		X = prods.pop()
-		R = [R[floor(i/2)] % X[i]**2 for i in range(len(X))]
+		R = [R[int(floor(i/2))] % X[i]**2 for i in range(len(X))]
 	return [gcd(r/n,n) for r,n in zip(R,X)]
