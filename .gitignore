@@ -1,2 +1,21 @@
-	.ipynb_checkpoints/ 
-	__pycache__/  
+# jupyter and py files
+.ipynb_checkpoints/
+__pycache__/
+
+# 01 test data
+01/data/
+01/entropy*
+
+# 02 test data
+02/*rand*
+
+# 03 test data    
+03/get_keys_pages_1_13000.py
+03/keys/
+03/top10milliondomains.csv
+
+# extentions and excel with syllabus
+*.png
+*.pdf
+ProgramKiBIF2020L.xlsx
+
