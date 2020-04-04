@@ -10,8 +10,9 @@ def product(X):
 def producttree(X):
 	result = [X]
 	while len(X) > 1:
-		print((len(X)+1)//2)
-		X = [(lambda i: np.prod(X[int(i*2):int((i+1)*2)]) )(i) for i in range((len(X)+1)//2)]
+		for i in range((len(X)+1)//2):
+			print(i, np.prod(X[i*2:(i+1)*2]))
+		X = [ np.prod(X[int(i*2):int((i+1)*2)]) for i in range((len(X)+1)//2)]
 		result.append(X)
 	return result
 
@@ -29,5 +30,5 @@ def batchgcd_faster(X):
 	R = prods.pop()
 	while prods:
 		X = prods.pop()
-		R = [R[int(i//2)] % X[i]**2 for i in range(len(X))]
+		R = [R[i//2] % X[i]**2 for i in range(len(X))]
 	return [ gcd(r//n,n) for r,n in zip(R,X)]
