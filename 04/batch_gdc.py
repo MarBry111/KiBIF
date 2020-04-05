@@ -10,8 +10,8 @@ def product(X):
 def producttree(X):
 	result = [X]
 	while len(X) > 1:
-		for i in range((len(X)+1)//2):
-			print(i, np.prod(X[i*2:(i+1)*2]))
+		#for i in range((len(X)+1)//2):
+		#	print(i, np.prod(X[i*2:(i+1)*2]))
 		X = [ np.prod(X[int(i*2):int((i+1)*2)]) for i in range((len(X)+1)//2)]
 		result.append(X)
 	return result
