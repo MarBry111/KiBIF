@@ -13,6 +13,7 @@ __pycache__/
 03/get_keys_pages_1_13000.py
 03/keys/
 03/top10milliondomains.csv
+03/*.csv
 
 # extentions and excel with syllabus
 *.png
